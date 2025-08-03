@@ -77,8 +77,7 @@ class Hazog:
                 Industries.REFINING,
                 Industries.HEAVYINDUSTRY,
                 Industries.PATROLHQ,
-                Industries.GROUNDDEFENSES,
-                Industries.ORBITALSTATION
+                Industries.GROUNDDEFENSES
             ),
             0.25,
             false,
@@ -116,7 +115,7 @@ class Hazog:
                 Industries.POPULATION,
                 Industries.SPACEPORT,
                 Industries.MINING,
-                Industries.GROUNDDEFENSES
+                Industries.PATROLHQ
             ),
             0.25,
             true,
