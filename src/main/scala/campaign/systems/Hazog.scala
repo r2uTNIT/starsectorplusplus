@@ -16,18 +16,18 @@ import com.fs.starfarer.api.util.*
 import r2u.starsectorplusplus.campaign.*
 
 class Hazog:
-    final val BleckleyDistance:Float = 4500 // volcanic
-    final val CitadelHazogDistance:Float = 1000 // military base
-    final val CochranDistance:Float = 12700 // gas giant
-    final val CochranRingDistance:Float = 600
-    final val JumpPointInnerDistance:Float = 3000
-    final val JumpPointOuterDistance:Float = 12000
-    final val JumpPointFringeDistance:Float = 23000
-    final val CaryDistance:Float = 22700 // barren
-    final val PayneDistance:Float = 17025  // asteroid belt
-    final val StableLocation1Distance:Float = 8000
-    final val StableLocation2Distance:Float = 15000
-    final val StableLocation3Distance:Float = 20000
+    val bleckleyDistance:Float = 4500 // volcanic
+    val citadelHazogDistance:Float = 1000 // military base
+    val cochranDistance:Float = 12700 // gas giant
+    val cochranRingDistance:Float = 600
+    val jumpPointInnerDistance:Float = 3000
+    val jumpPointOuterDistance:Float = 12000
+    val jumpPointFringeDistance:Float = 23000
+    val caryDistance:Float = 22700 // barren
+    val payneDistance:Float = 17025  // asteroid belt
+    val stableLocation1Distance:Float = 8000
+    val stableLocation2Distance:Float = 15000
+    val stableLocation3Distance:Float = 20000
 
     def generate(sector:SectorAPI):Unit =
         val system:StarSystemAPI = sector.createStarSystem("Hazog")
@@ -47,8 +47,8 @@ class Hazog:
             "lava_minor", 
             360 * Math.random().asInstanceOf[Float],
             150,
-            BleckleyDistance,
-            BleckleyDistance / 20 + Random()
+            bleckleyDistance,
+            bleckleyDistance / 20 + Random()
                 .nextFloat() * 5
         )
         StarsectorPlusPlusGen.addMarket(
@@ -90,8 +90,8 @@ class Hazog:
             "barren",
             360 * Math.random().asInstanceOf[Float],
             100,
-            CaryDistance,
-            CaryDistance / 20 + Random()
+            caryDistance,
+            caryDistance / 20 + Random()
                 .nextFloat() * 5
         )
         StarsectorPlusPlusGen.addMarket(
@@ -128,8 +128,8 @@ class Hazog:
             "gas_giant",
             360 * Math.random().asInstanceOf[Float],
             400,
-            CochranDistance,
-            CochranDistance / 20 + Random()
+            cochranDistance,
+            cochranDistance / 20 + Random()
                 .nextFloat() * 5
         )
         val cochran_market:MarketAPI = cochran.getMarket()
@@ -141,8 +141,8 @@ class Hazog:
         citadelHazog.setCircularOrbitPointingDown(
             cochran,
             0,
-            CitadelHazogDistance,
-            CitadelHazogDistance / 20 + Random()
+            citadelHazogDistance,
+            citadelHazogDistance / 20 + Random()
                 .nextFloat() * 5
         )
         StarsectorPlusPlusGen.addMarket(
@@ -173,11 +173,11 @@ class Hazog:
         system.addAsteroidBelt(
             star, 
             1000, 
-            PayneDistance, 
+            payneDistance, 
             500,
-            (PayneDistance / 20 + Random()
+            (payneDistance / 20 + Random()
                 .nextFloat() * 5) * 0.25F,
-            PayneDistance / 20 + Random()
+            payneDistance / 20 + Random()
                 .nextFloat() * 5,
             Terrain.ASTEROID_BELT,
             "Ring of Payne" 
@@ -190,8 +190,8 @@ class Hazog:
             0,
             Color.gray,
             256,
-            PayneDistance,
-            PayneDistance / 20 + Random()
+            payneDistance,
+            payneDistance / 20 + Random()
                 .nextFloat() * 5 
         )
         system.addRingBand(
@@ -202,8 +202,8 @@ class Hazog:
             1,
             Color.ORANGE,
             256,
-            CochranRingDistance,
-            CochranRingDistance / 20 + Random()
+            cochranRingDistance,
+            cochranRingDistance / 20 + Random()
                 .nextFloat() * 5,
             Terrain.RING,
             "Cochran's Disc"
@@ -216,19 +216,19 @@ class Hazog:
             2,
             Color.ORANGE,
             256,
-            CochranRingDistance + 100,
-            (CochranRingDistance + 100) / 20 + Random()
+            cochranRingDistance + 100,
+            (cochranRingDistance + 100) / 20 + Random()
                 .nextFloat() * 5,
             Terrain.RING,
             "Cochran's Disc"
         )
-        StarsectorPlusPlusGen.addStableLocation(system, "hazogStableLocation1", "Hazog Relay", Entities.COMM_RELAY_MAKESHIFT, Factions.INDEPENDENT, StableLocation1Distance)
-        StarsectorPlusPlusGen.addStableLocation(system, "hazogStableLocation2", "Makeshift Sensor Array", Entities.SENSOR_ARRAY_MAKESHIFT, Factions.INDEPENDENT, StableLocation2Distance)
-        StarsectorPlusPlusGen.addStableLocation(system, "hazogStableLocation3", "Makeshift Nav Buoy", Entities.NAV_BUOY_MAKESHIFT, Factions.PERSEAN, StableLocation3Distance)
+        StarsectorPlusPlusGen.addStableLocation(system, "hazogStableLocation1", "Hazog Relay", Entities.COMM_RELAY_MAKESHIFT, Factions.INDEPENDENT, stableLocation1Distance)
+        StarsectorPlusPlusGen.addStableLocation(system, "hazogStableLocation2", "Makeshift Sensor Array", Entities.SENSOR_ARRAY_MAKESHIFT, Factions.INDEPENDENT, stableLocation2Distance)
+        StarsectorPlusPlusGen.addStableLocation(system, "hazogStableLocation3", "Makeshift Nav Buoy", Entities.NAV_BUOY_MAKESHIFT, Factions.PERSEAN, stableLocation3Distance)
 
-        StarsectorPlusPlusGen.addJumpPoint("inner_jump_point", "Inner System Jump Point", star, JumpPointInnerDistance, system)
-        StarsectorPlusPlusGen.addJumpPoint("outer_jump_point", "Outer System Jump Point", star, JumpPointOuterDistance, system)
-        StarsectorPlusPlusGen.addJumpPoint("fringe_jump_point", "Fringe Jump Point", star, JumpPointFringeDistance, system)
+        StarsectorPlusPlusGen.addJumpPoint("inner_jump_point", "Inner System Jump Point", star, jumpPointInnerDistance, system)
+        StarsectorPlusPlusGen.addJumpPoint("outer_jump_point", "Outer System Jump Point", star, jumpPointOuterDistance, system)
+        StarsectorPlusPlusGen.addJumpPoint("fringe_jump_point", "Fringe Jump Point", star, jumpPointFringeDistance, system)
 
         system.autogenerateHyperspaceJumpPoints(true, false)
         

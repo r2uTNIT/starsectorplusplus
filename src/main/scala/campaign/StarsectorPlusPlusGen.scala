@@ -1,6 +1,7 @@
 package r2u.starsectorplusplus.campaign
 
 import scala.annotation.*
+import scala.compiletime.ops.double
 
 import java.util.Random
 
@@ -9,37 +10,21 @@ import com.fs.starfarer.api.*
 import com.fs.starfarer.api.campaign.econ.*
 
 import r2u.starsectorplusplus.campaign.systems.*
-import scala.compiletime.ops.double
-
-class StarsectorPlusPlusGen:
-    def generate(sector:SectorAPI):Unit =
-        Hazog()
-            .generate(sector)
 
 object StarsectorPlusPlusGen:
+    def generate(sector:SectorAPI):Unit =
+        Hazog().generate(sector)
+        
     def addJumpPoint(id:String, name:String, star:PlanetAPI, orbitDistance:Float, system:StarSystemAPI):Unit =
-        val jumpPoint:JumpPointAPI = Global.getFactory()
-            .createJumpPoint(id, name)
+        val jumpPoint:JumpPointAPI = Global.getFactory().createJumpPoint(id, name)
 
-        jumpPoint.setCircularOrbit(
-            star,
-            2,
-            orbitDistance,
-            orbitDistance / 20 + Random()
-                .nextFloat() * 5
-        )
+        jumpPoint.setCircularOrbit(star, 2, orbitDistance, orbitDistance / 20 + Random().nextFloat() * 5)
         jumpPoint.setStandardWormholeToHyperspaceVisual()
         system.addEntity(jumpPoint)
 
     def addStableLocation(system:StarSystemAPI, id:String, name:String, locationType:String, faction:String, orbitDistance:Float):Unit =
         system.addCustomEntity(id, name, locationType, faction)
-            .setCircularOrbit(
-                system.getStar(),
-                2,
-                orbitDistance,
-                orbitDistance / 20 + Random()
-                    .nextFloat() * 5
-            )
+            .setCircularOrbit(system.getStar(), 2, orbitDistance, orbitDistance / 20 + Random().nextFloat() * 5)
 
     def addMarket(
         factionId:String, 
@@ -54,17 +39,14 @@ object StarsectorPlusPlusGen:
         isFreePort:Boolean,
         floatyJunk:Boolean
     ):MarketAPI =
-        val globalEconomy:EconomyAPI = Global.getSector()
-            .getEconomy()
+        val globalEconomy:EconomyAPI = Global.getSector().getEconomy()
 
         val marketId:String = s"${primaryEntity.getId()}_market"
-        val newMarket:MarketAPI = Global.getFactory()
-            .createMarket(marketId, name, size)
+        val newMarket:MarketAPI = Global.getFactory().createMarket(marketId, name, size)
 
         newMarket.setFactionId(factionId)
         newMarket.setPrimaryEntity(primaryEntity)
-        newMarket.getTariff()
-            .setBaseValue(tariff)
+        newMarket.getTariff().setBaseValue(tariff)
 
         doSubmarkets(0, newMarket, submarkets)
 
