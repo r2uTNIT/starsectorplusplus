@@ -28,6 +28,7 @@ class Hazog:
     val stableLocation1Distance:Float = 8000
     val stableLocation2Distance:Float = 15000
     val stableLocation3Distance:Float = 20000
+    val payneAstropolisDistance:Float = 400
 
     def generate(sector:SectorAPI):Unit =
         val system:StarSystemAPI = sector.createStarSystem("Hazog")
@@ -137,7 +138,7 @@ class Hazog:
         cochran_market.addCondition(Conditions.DENSE_ATMOSPHERE)
         cochran_market.addCondition(Conditions.VOLATILES_TRACE)
 
-        val citadelHazog:CustomCampaignEntityAPI = system.addCustomEntity("citadel_hazog", "Citadel Hazog", "station_lowtech2", Factions.INDEPENDENT)
+        val citadelHazog:CustomCampaignEntityAPI = system.addCustomEntity("citadel_hazog", "Citadel Hazog", "station_hightech1", Factions.INDEPENDENT)
         citadelHazog.setCircularOrbitPointingDown(
             cochran,
             0,
@@ -170,15 +171,39 @@ class Hazog:
             false,
             false
         )
+        val payneAstropolis:CustomCampaignEntityAPI = system.addCustomEntity("payne_astropolis", "Payne Astropolis", "station_lowtech2", Factions.INDEPENDENT)
+        payneAstropolis.setCircularOrbitPointingDown(bleckley, 0, payneAstropolisDistance, payneAstropolisDistance / 20 + Random().nextFloat() * 5)
+        StarsectorPlusPlusGen.addMarket(
+            Factions.INDEPENDENT,
+            payneAstropolis,
+            None,
+            "Payne Astropolis",
+            3,
+            Array(
+                Conditions.POPULATION_3
+            ),
+            Array(
+                Submarkets.SUBMARKET_STORAGE,
+                Submarkets.SUBMARKET_OPEN,
+                Submarkets.SUBMARKET_BLACK
+            ),
+            Array(
+                Industries.POPULATION,
+                Industries.SPACEPORT,
+                Industries.FUELPROD,
+                Industries.PATROLHQ
+            ),
+            0.25,
+            false,
+            false
+        )
         system.addAsteroidBelt(
             star, 
             1000, 
             payneDistance, 
             500,
-            (payneDistance / 20 + Random()
-                .nextFloat() * 5) * 0.25F,
-            payneDistance / 20 + Random()
-                .nextFloat() * 5,
+            (payneDistance / 20 + Random().nextFloat() * 5) * 0.25F,
+            payneDistance / 20 + Random().nextFloat() * 5,
             Terrain.ASTEROID_BELT,
             "Ring of Payne" 
         )
